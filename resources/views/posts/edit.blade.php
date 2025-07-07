@@ -19,27 +19,15 @@
 
                         <textarea name="message" placeholder="{{ __('What\'s do you think?') }}"
                             class="mt-6 block w-full rounded-md bg-white shadow-sm focus:border-indigo-200 focus:ring focus:ring-yellow-200 focus:ring-opacity-50 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-300 dark:focus:ring dark:focus:ring-opacity-50 @error('message') border-red-500 @enderror">{{ old('message', $post->message) }}</textarea>
-
                         <x-input-error :messages="$errors->get('message')" />
-
-                        {{-- Agregar imagen al Post --}}
-                        @if ($post->image)
-                            <div class="mt-4">  
-                                <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image" class="rounded-lg max-h-80 mx-auto">
-                                <div class="mt-2">
-                                {{-- Remueve la imagen --}}
-                                    <label class="inline-flex items-center">
-                                        <input type="checkbox" name="remove_image" value="1" class="rounded text-red-600">
-                                        <span class="ml-2 text-sm text-gray-600 dark:text-gray-300">{{ __('Remove current image') }}</span>
-                                    </label>
-                                </div>
-                            </div>
-                        @endif
-                        {{-- Mostrar Imagen si existe --}}
-                        <input type="file" name="image" class="mt-4 text-sm text-gray-700 dark:text-gray-200">
-                        {{-- Mostrar errores de imagen --}}
-                        <x-input-error :messages="$errors->get('image')" />
-
+                        
+                        <!-- Módulos condicionales de la imagen by Michelle Adriana Flores Mora  -->
+                            @if($post->image)
+                                @include('posts.image.update_add_image')
+                            @else
+                                @include('posts.image.add_image')
+                            @endif           
+                                         
                         <x-primary-button class="mt-6">
                             {{ __("Save Changes") }}
                         </x-primary-button>

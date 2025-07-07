@@ -19,10 +19,9 @@
                         <textarea name="message" placeholder="{{ __('What\'s do you think?') }}"
                             class="mt-6 block w-full rounded-md bg-white shadow-sm focus:border-indigo-200 focus:ring focus:ring-yellow-200 focus:ring-opacity-50 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-300 dark:focus:ring dark:focus:ring-opacity-50 @error('message') border-red-500 @enderror">{{ old('message') }}</textarea>
                         <x-input-error :messages="$errors->get('message')" />
-                  {{-- Agregar imagen al Post --}}
-
-                        <input type="file" name="image" class="mt-4 text-sm text-gray-700 dark:text-gray-200">
-                        <x-input-error :messages="$errors->get('image')" />
+                        
+                        {{-- Incluir módulo para agregar imagen by Michelle Adrian Flores Mora--}}
+                         @include('posts.image.add_image') 
 
                         <x-primary-button class="mt-6">
                             {{ __("Posting") }}
@@ -57,14 +56,9 @@
                             <p class="mt-4 text-lg text-gray-900 dark:text-gray-100">
                                 {{ $post->message }}
                             </p>
-                              {{-- Mostrar Imagen si existe --}}
-                            @if ($post->image)
-                                <div class="mt-4">
-                                    <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image" class="rounded-lg max-h-80 mx-auto">
-                                </div>
-                            @endif
+                             {{-- Agregar imagen a las lista de posts by Michelle Adriana Flores Mora--}}
+                             @include('posts.image.add_list_image') 
                         </div>
-
                         @can('update', $post)
                             <x-dropdown>
                                 <x-slot name="trigger">
@@ -115,7 +109,6 @@
                     </div>
                 </div>
             @endforeach
-
         </div>
     </div>
 </x-app-layout>

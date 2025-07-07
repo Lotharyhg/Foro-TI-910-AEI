@@ -22,10 +22,10 @@ class PostController extends Controller
         // Validaciones
         $dataValidates = $request->validate([
             'message' => ['required', 'min:8', 'max:255'],
-            'image' => ['nullable', 'image', 'max:2048'],
+            'image' => ['nullable', 'image', 'max:2048'], // Validar que sea una imagen y que no pese más de 2MB by Michelle Adriana Flores Mora
         ]);
 
-        // Si hay una imagen, la guardamos
+        // Si hay una imagen, la guardamos by Michelle Adriana Flores Mora
         if ($request->hasFile('image')) {
             $dataValidates['image'] = $request->file('image')->store('posts', 'public');
         }
@@ -54,14 +54,14 @@ class PostController extends Controller
             'image' => ['nullable', 'image', 'max:2048'],
         ]);
 
-        // Si se sube nueva imagen, eliminar la anterior
+        // Si se sube nueva imagen, eliminar la anterior by Michelle Adriana Flores Mora
         if ($request->hasFile('image')) {
             if ($post->image) {
                 Storage::disk('public')->delete($post->image);
             }
             $dataValidates['image'] = $request->file('image')->store('posts', 'public');
         }
-
+        // Si se elimina la imagen, eliminar la imagen anterior by Michelle Adriana Flores Mora
         if ($request->input('remove_image')) {
             if ($post->image) {
                 Storage::disk('public')->delete($post->image);
@@ -77,7 +77,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $this->authorize('delete', $post);
-        // Borrar imagen 
+        // Si el post tiene una imagen, eliminarla de la carpeta de almacenamiento by Michelle Adriana Flores Mora
         if ($post->image) {
             Storage::disk('public')->delete($post->image);
         }
