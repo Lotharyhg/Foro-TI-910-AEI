@@ -1,66 +1,108 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🧠 Foro de TI para Estudiantes
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este proyecto es un **foro académico** dirigido a estudiantes del área de Tecnologías de la Información, donde pueden **realizar publicaciones, comentar y compartir conocimientos**. Está desarrollado con Laravel y Tailwind CSS, enfocado en la simplicidad, accesibilidad y participación activa.
 
-## About Laravel
+## 🚀 Tecnologías utilizadas
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Laravel 11 con Breeze
+- Tailwind CSS para diseño
+- Storage Disk de Laravel para carga y gestión de imágenes
+- Política de roles para control de acceso
+- Laravel Lang para soporte en español
+- MySQL
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 💻 Instalación del Proyecto
+1. Realiza un fork del repositorio
+2. Clona tu fork localmente:
+   git clone https://github.com/tuusuario/foro-ti.git
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+3. Entra al directorio del proyecto:
+   cd foro-ti
 
-## Learning Laravel
+4. Instala las dependencias de PHP y JavaScript:
+   composer install
+   npm install
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+5. Copia el archivo de entorno:
+   cp .env.example .env
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+6. Configura en `.env`:
+   - La zona horaria: `America/Mexico_City`
+   - El idioma predeterminado: `es` (usa Laravel Lang para la localización)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+7. Crea una base de datos en tu gestor (ej. MySQL) y coloca las credenciales en `.env`
 
-## Laravel Sponsors
+8. Genera la clave de la aplicación:
+   php artisan key:generate
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+9. Ejecuta las migraciones:
+   php artisan migrate
 
-### Premium Partners
+10. Crea el enlace simbólico al almacenamiento:
+    php artisan storage:link
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+11. Levanta el servidor y prueba que todo funcione:
+    php artisan serve
 
-## Contributing
+## 🤝 Aportaciones al proyecto
+Si deseas colaborar, sigue estas convenciones:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+🔧 Vistas
+Las nuevas vistas deben agregarse en una carpeta independiente, cuyo nombre haga referencia al cambio realizado.
 
-## Code of Conduct
+Usa @include para insertar tu vista en layouts existentes.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+No se requiere el uso de componentes Blade o de Tailwind con slot por ahora.
 
-## Security Vulnerabilities
+📚 Controladores, Modelos y Rutas
+Comenta claramente cada cambio con tu nombre o usuario como referencia.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+No crear nuevos archivos de rutas; modifica solo los existentes si es necesario.
 
-## License
+## 🔁 Flujo de trabajo colaborativo
+1. Agrega el repositorio original como upstream:
+   git remote add upstream https://github.com/usuario-original/foro-ti.git
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+2. Crea una nueva rama para tus aportaciones:
+   # Para nuevas funcionalidades
+   git checkout -b feature/nombre-de-la-funcion
+
+   # Para correcciones
+   git checkout -b fix/nombre-de-la-correccion
+
+   # Para mejoras
+   git checkout -b refactor/nombre-de-la-mejora
+
+4. Realiza tus aportes y haz commit:
+   git commit -m "Agrega nueva funcionalidad: X por @tuusuario"
+
+5. Haz push a tu fork:
+   git push origin nombre-de-la-rama
+
+6. Abre una Pull Request con:
+   - Descripción detallada de la aportación
+   - Capturas de pantalla si aplica
+   - Comentarios explicativos en cada imagen
+   - Tu autoría como colaborador
+
+## 📄 Licencia
+Este proyecto está bajo la licencia MIT. Puedes usarlo, modificarlo y distribuirlo libremente con la debida atribución.
+
+## 👨‍💻 Autor principal
+Desarrollado y mantenido por:
+
+Lothar Hdez
+GitHub: @Lotharyhg
+Proyecto educativo para fines académicos.
+
+---
+
+## 🖼️ Vista previa del proyecto
+
+> Aquí puedes añadir imágenes o GIFs de tu proyecto en funcionamiento:
+> 
+
+```md
+![Inicio de sesión](./screenshots/login.png)
+![Vista principal del foro](./screenshots/foro.png)
+
