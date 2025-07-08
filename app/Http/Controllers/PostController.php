@@ -12,8 +12,14 @@ class PostController extends Controller
     {
         return view ('posts/index', [
             'posts' => Post::with('user')->latest()->get(),
-1        ]);
+        ]);
+    }
 
+    // NUEVO MÉTODO: Mostrar post individual con comentarios by Jorge Aldair Pérez Hernández
+    public function show(Post $post)
+    {
+        $post->load(['user', 'parentComments.user', 'parentComments.allReplies.user']);
+        return view('posts.show', compact('post'));
     }
 
     public function store(Request $request){
