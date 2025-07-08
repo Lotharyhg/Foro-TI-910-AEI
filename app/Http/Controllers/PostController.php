@@ -46,14 +46,13 @@ class PostController extends Controller
 public function update(Request $request, Post $post)
 {
     $this->authorize('update', $post);
-
     $dataValidates = $request->validate([
         'message' => ['required', 'min:8', 'max:255'],
-        'image' => ['nullable', 'image', 'max:2048'],
+        'image' => ['nullable', 'image', 'max:2048'], // Validar que sea una imagen y que no pese más de 2MB by Michelle Adriana Flores Mora
     ]);
 
     $removedImage = false;
-
+    // Si el usuario quiere eliminar la imagen, la eliminamos de la carpeta de almacenamiento by Michelle Adriana Flores Mora
     if ($request->input('remove_image') == '1') {
         if ($post->image) {
             Storage::disk('public')->delete($post->image);
@@ -62,6 +61,7 @@ public function update(Request $request, Post $post)
         }
     }
 
+    // Si hay una nueva imagen, la guardamos y eliminamos la anterior si existe by Michelle Adriana Flores Mora
     if ($request->hasFile('image')) {
         if ($post->image) {
             Storage::disk('public')->delete($post->image);
