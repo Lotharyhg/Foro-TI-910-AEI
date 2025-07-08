@@ -64,13 +64,13 @@ No crear nuevos archivos de rutas; modifica solo los existentes si es necesario.
    git remote add upstream https://github.com/Lotharyhg/Foro-TI-910-AEI.git
 
 2. Crea una nueva rama para tus aportaciones:
-   # Para nuevas funcionalidades
+   ### Para nuevas funcionalidades
    git checkout -b feature/nombre-de-la-funcion
 
-   # Para correcciones
+   ### Para correcciones
    git checkout -b fix/nombre-de-la-correccion
 
-   # Para mejoras
+   ### Para mejoras
    git checkout -b refactor/nombre-de-la-mejora
 
 4. Realiza tus aportes y haz commit:
