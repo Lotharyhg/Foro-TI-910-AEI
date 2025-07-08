@@ -85,8 +85,12 @@ No crear nuevos archivos de rutas; modifica solo los existentes si es necesario.
    - Comentarios explicativos en cada imagen
    - Tu autoría como colaborador
 
-## 📄 Licencia
-Este proyecto está bajo la licencia MIT. Puedes usarlo, modificarlo y distribuirlo libremente con la debida atribución.
+---
+
+## 🖼️ Vista previa del proyecto
+![Foro-TI (1)](https://github.com/user-attachments/assets/2c0443ee-49bd-410b-9982-8c4e495b0984)
+---
+![Foro-TI (2)](https://github.com/user-attachments/assets/59347237-d879-440f-9ef1-b13cad78b652)
 
 ## 👨‍💻 Autor principal
 Desarrollado y mantenido por:
@@ -95,10 +99,7 @@ Desarrollado y mantenido por:
 GitHub: *@Lotharyhg*
 Proyecto educativo para fines académicos.
 
----
 
-## 🖼️ Vista previa del proyecto
-```md
-![Vista 1](./screenshots/foro-ti1.jpg)
-![Vista 2](./screenshots/foro-ti2.jpg)
+## 📄 Licencia
+Este proyecto está bajo la licencia MIT. Puedes usarlo, modificarlo y distribuirlo libremente con la debida atribución.
 
