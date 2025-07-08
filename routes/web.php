@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -51,6 +52,8 @@ Route::get('/posts/{post}/edit', [App\Http\Controllers\PostController::class, 'e
 Route::patch('/posts/{post}', [App\Http\Controllers\PostController::class, 'update']) ->name('posts.update');
 // Ruta para Eliminar las publicaciones
 Route::delete('/posts/{post}', [App\Http\Controllers\PostController::class, 'destroy']) ->name('posts.destroy');
+
+
 
 
 require __DIR__.'/auth.php';
