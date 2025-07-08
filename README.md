@@ -14,10 +14,10 @@ Este proyecto es un **foro académico** dirigido a estudiantes del área de Tecn
 ## 💻 Instalación del Proyecto
 1. Realiza un fork del repositorio
 2. Clona tu fork localmente:
-   git clone https://github.com/tuusuario/foro-ti.git
+   git clone https://github.com/*TuUsuario*/Foro-TI-910-AEI.git
 
 3. Entra al directorio del proyecto:
-   cd foro-ti
+   cd Foro-TI-910-AEI
 
 4. Instala las dependencias de PHP y JavaScript:
    composer install
@@ -61,7 +61,7 @@ No crear nuevos archivos de rutas; modifica solo los existentes si es necesario.
 
 ## 🔁 Flujo de trabajo colaborativo
 1. Agrega el repositorio original como upstream:
-   git remote add upstream https://github.com/usuario-original/foro-ti.git
+   git remote add upstream https://github.com/Lotharyhg/Foro-TI-910-AEI.git
 
 2. Crea una nueva rama para tus aportaciones:
    # Para nuevas funcionalidades
@@ -91,18 +91,14 @@ Este proyecto está bajo la licencia MIT. Puedes usarlo, modificarlo y distribui
 ## 👨‍💻 Autor principal
 Desarrollado y mantenido por:
 
-Lothar Hdez
-GitHub: @Lotharyhg
+*Lothar Hdez*
+GitHub: *@Lotharyhg*
 Proyecto educativo para fines académicos.
 
 ---
 
 ## 🖼️ Vista previa del proyecto
-
-> Aquí puedes añadir imágenes o GIFs de tu proyecto en funcionamiento:
-> 
-
 ```md
-![Inicio de sesión](./screenshots/login.png)
-![Vista principal del foro](./screenshots/foro.png)
+![Vista 1](./screenshots/foro-ti1.jpg)
+![Vista 2](./screenshots/foro-ti2.jpg)
 
