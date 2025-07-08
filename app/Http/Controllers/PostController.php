@@ -43,35 +43,48 @@ class PostController extends Controller
         return view('posts/edit', ['post' => $post]);
     }
 
-    public function update(Request $request, Post $post)
-    {
+public function update(Request $request, Post $post)
+{
+    $this->authorize('update', $post);
 
-        // llamar la función de la politica creada
-        $this->authorize('update', $post);
+    $dataValidates = $request->validate([
+        'message' => ['required', 'min:8', 'max:255'],
+        'image' => ['nullable', 'image', 'max:2048'],
+    ]);
 
-        $dataValidates = $request->validate([
-            'message' => ['required', 'min:8', 'max:255'],
-            'image' => ['nullable', 'image', 'max:2048'],
-        ]);
+    $removedImage = false;
 
-        // Si se sube nueva imagen, eliminar la anterior by Michelle Adriana Flores Mora
-        if ($request->hasFile('image')) {
-            if ($post->image) {
-                Storage::disk('public')->delete($post->image);
-            }
-            $dataValidates['image'] = $request->file('image')->store('posts', 'public');
+    if ($request->input('remove_image') == '1') {
+        if ($post->image) {
+            Storage::disk('public')->delete($post->image);
+            $post->image = null;
+            $removedImage = true;  
         }
-        // Si se elimina la imagen, eliminar la imagen anterior by Michelle Adriana Flores Mora
-        if ($request->input('remove_image')) {
-            if ($post->image) {
-                Storage::disk('public')->delete($post->image);
-                $dataValidates['image'] = null;
-            }
-        }
-
-        $post->update($dataValidates);
-        return to_route('posts.index')->with('status', __('Post edited successfully'));
     }
+
+    if ($request->hasFile('image')) {
+        if ($post->image) {
+            Storage::disk('public')->delete($post->image);
+        }
+        $dataValidates['image'] = $request->file('image')->store('posts', 'public');
+    }
+
+    $post->message = $dataValidates['message'];
+
+    if (array_key_exists('image', $dataValidates)) {
+        $post->image = $dataValidates['image'];
+    }
+
+    $post->save();
+
+    if ($removedImage && !$request->hasFile('image')) {
+        return redirect()->route('posts.edit', $post->id)->with('status', __('Image deleted, you can upload a new one.'));
+    } else {
+        return redirect()->route('posts.index')->with('status', __('Post edited successfully!'));
+    }
+}
+
+
 
 
     public function destroy(Post $post)
