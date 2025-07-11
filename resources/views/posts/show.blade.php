@@ -29,6 +29,8 @@
                         </div>
                         <p class="mt-4 text-lg text-gray-900 dark:text-gray-100">
                             {{$post->message}}
+                                                        @include('posts.image.add_list_image')
+
                         </p>
                         
                         <div class="mt-4">
