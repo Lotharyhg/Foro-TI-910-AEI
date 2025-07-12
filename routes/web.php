@@ -2,24 +2,14 @@
 
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::view('/welcome2', 'welcome') ->name('welcome'); /// Llamar a una sola vista
+Route::view('/welcome2', 'welcome')->name('welcome');
 
 Route::get('/develop', function(){
     return 'welcome to development';
@@ -32,7 +22,6 @@ Route::get('/developers/{develop}', function($develop){
     return 'Developer no access ' . $develop;
 });
 
-
 Route::middleware('auth')->group(function () {
     Route::view('/dashboard', 'dashboard')->name('dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -40,20 +29,19 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-/// rutas personalizadas para el foro de TI
+Route::middleware('auth')->group(function () {
+    Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+    Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
+    Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
+    Route::patch('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
+    Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
 
-/// Rutas Personalizadas para llamar la función de index y mostrar los posteos
-Route::get('/posts',[App\Http\Controllers\PostController::class, 'index'])->name('posts.index');
-// Ruta para guardar las publicaciones en la base de datos
-Route::post('/posts', [App\Http\Controllers\PostController::class, 'store'])->name('posts.store');
-// Ruta para mostrar el formulario de Editar las publicaciones
-Route::get('/posts/{post}/edit', [App\Http\Controllers\PostController::class, 'edit']) ->name('posts.edit');
-// Ruta para guardar la edición de la publicación en la base de datos
-Route::patch('/posts/{post}', [App\Http\Controllers\PostController::class, 'update']) ->name('posts.update');
-// Ruta para Eliminar las publicaciones
-Route::delete('/posts/{post}', [App\Http\Controllers\PostController::class, 'destroy']) ->name('posts.destroy');
-
-
-
+    // CREACIÓN DE RUTAS PARA COMENTARIOS BY JORGE ALDAIR PÉREZ HERNÁNDEZ
+    Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::post('/comments/{comment}/reply', [CommentController::class, 'reply'])->name('comments.reply');
+    Route::patch('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update'); 
+    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+});
 
 require __DIR__.'/auth.php';
