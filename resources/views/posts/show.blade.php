@@ -27,6 +27,8 @@
                                 @endunless
                             </div>
                         </div>
+                          {{-- Mostrar el titulo en los comentarios by Michelle Adriana Flores Mora --}}
+                            @include('posts.image.title.add_title_list')
                         <p class="mt-4 text-lg text-gray-900 dark:text-gray-100">
                             {{$post->message}}
                             @include('posts.image.add_list_image')
