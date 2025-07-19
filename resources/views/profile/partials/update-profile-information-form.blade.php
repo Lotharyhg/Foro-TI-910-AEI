@@ -13,9 +13,37 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
         @method('patch')
+        
+        <!-- Imagen de perfil actual -->
+        @if(Auth::user()->profile_photo_url)
+            <div class="mt-4">
+                <p class="text-sm text-gray-600 mb-1">Foto de perfil actual:</p>
+                <img src="{{ Auth::user()->profile_photo_url }}"
+                    alt="Foto de perfil"
+                    class="w-24 h-24 rounded-full object-cover border border-gray-300 dark:border-gray-600">
+            </div>
+        @endif
+
+        <!-- Campo para subir nueva foto -->
+        <div class="mt-4">
+            <x-input-label for="fotoperfil" :value="__('Foto de perfil')" />
+            
+            <input
+                id="fotoperfil"
+                type="file"
+                name="fotoperfil"
+                accept="image/*"
+                class="mt-1 block w-full text-sm text-gray-700 border border-gray-300 rounded-md shadow-sm
+                    file:bg-blue-50 file:text-blue-700 file:border-0
+                    hover:file:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500
+                    dark:text-gray-300 dark:border-gray-600 dark:bg-gray-800"
+            />
+            
+            <x-input-error :messages="$errors->get('fotoperfil')" class="mt-2" />
+        </div>
 
         <div>
             <x-input-label for="name" :value="__('Name')" />

@@ -46,6 +46,10 @@
                         <div class="flex-1">
                             <div class="flex justify-between items-center">
                                 <div>
+                                    {{-- Imagen de perfil en comentario --}}
+                                    <img src="{{ $post->user->profile_photo_url  }}"
+                                        class="w-8 h-8 rounded-full mr-2 border border-gray-300 dark:border-gray-600 object-cover">
+
                                     <span class="text-gray-800 dark:text-gray-200 mt-5 pb-2">
                                         {{ $post->user->name }}
                                     </span>
