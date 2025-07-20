@@ -28,6 +28,9 @@ class ProfileController extends Controller
     {
         $request->user()->fill($request->validated());
 
+        //Carga para guardar la foto de perfil
+        // Si se ha subido una nueva foto de perfil, se guarda en el almacenamiento público
+        // y se actualiza el campo 'fotoperfil' del usuario.
          if ($request->hasFile('fotoperfil')) {
         $path = $request->file('fotoperfil')->store('fotoperfiles', 'public');
         $request->user()->fotoperfil = $path;
