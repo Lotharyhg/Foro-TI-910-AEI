@@ -57,7 +57,7 @@
                                     @endunless
                                 </div>
                             </div>
-                            
+                                                    
                              {{-- Mostrar el titulo en los comentarios by Michelle Adriana Flores Mora --}}
                             @include('posts.image.title.add_title_list')
 
@@ -78,8 +78,41 @@
                                     Ver comentarios ({{ $post->comments->count() }})
                                 </a>
                             </div>
+
+                             @php
+                                $userReaction = $post->reacciones->firstWhere('user_id', auth()->id());
+                            @endphp
+
+                                <div class="flex items-center gap-4 mt-4">
+                                    {{-- BOTÓN LIKE --}}
+                                    <form action="{{ route('posts.react', $post) }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="is_like" value="1">
+                                        <button type="submit"
+                                                class="flex items-center gap-1 px-3 py-1.5 rounded-full border 
+                                                    text-sm font-semibold shadow-sm transition-all duration-200
+                                                    {{ $userReaction && $userReaction->is_like 
+                                                        ? 'bg-green-600 text-white hover:bg-green-700' 
+                                                        : 'bg-white text-green-600 border-green-500 hover:bg-green-50' }}">
+                                            👍 Like ({{ $post->likes()->count() }})
+                                        </button>
+                                    </form>
+
+                                    {{-- BOTÓN DISLIKE --}}
+                                    <form action="{{ route('posts.react', $post) }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="is_like" value="0">
+                                        <button type="submit"
+                                                class="flex items-center gap-1 px-3 py-1.5 rounded-full border 
+                                                    text-sm font-semibold shadow-sm transition-all duration-200
+                                                    {{ $userReaction && !$userReaction->is_like 
+                                                        ? 'bg-red-600 text-white hover:bg-red-700' 
+                                                        : 'bg-white text-red-600 border-red-500 hover:bg-red-50' }}">
+                                            👎 Dislike ({{ $post->dislikes()->count() }})
+                                        </button>
+                                    </form>
+                                </div>
                         </div>
-                        
                         @can('update', $post)
                             <x-dropdown>
                                 <x-slot name="trigger">
