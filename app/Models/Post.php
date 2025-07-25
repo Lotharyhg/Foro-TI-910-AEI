@@ -14,6 +14,7 @@ class Post extends Model
     protected $fillable = [
         'message',
         'user_id',
+        'category',
         'title', // Esta columna almacena el título del post by Michelle Adriana Flores Mora
         'image' // Esta columna almacena la ruta asociada a la imagen del post by Michelle Adriana Flores Mora
 

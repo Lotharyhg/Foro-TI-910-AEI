@@ -28,9 +28,16 @@
                         {{-- Incluir módulo para agregar imagen by Michelle Adrian Flores Mora--}}
                         @include('posts.image.add_image') 
 
+                         {{-- Incluir módulo para agregar categorias by Sitlali San Martin Juarez--}}
+                        @include('posts.categorias.add_categorias') 
+
                         <x-primary-button class="mt-6">
                             {{ __("Posting") }}
                         </x-primary-button>
+                        
+                   
+
+
                     </form>
                 </div>
             </div>
@@ -67,6 +74,9 @@
 
                             {{-- Agregar imagen a las lista de posts by Michelle Adriana Flores Mora--}}
                             @include('posts.image.add_list_image')
+                            {{-- Agregar la categpria a la lista de posts by Sitlali San Martin --}}
+                            @include('posts.categorias.add_list_categories')
+
                             
                             {{-- SE AÑADIÓ UN ICONO DE COMENTARIOS BY JORGE ALDAIR PÉREZ HERNÁNDEZ --}}
                             <div class="mt-4 flex space-x-4">
