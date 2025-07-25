@@ -28,6 +28,7 @@ class PostController extends Controller
         // Validaciones
         $dataValidates = $request->validate([
             'message' => ['required', 'min:8', 'max:255'],
+            'title' => ['required', 'string', 'max:100'], // Validar que el título sea requerido, una cadena y no exceda los 100 caracteres by Michelle Adriana Flores Mora
             'image' => ['nullable', 'image', 'max:2048'], // Validar que sea una imagen y que no pese más de 2MB by Michelle Adriana Flores Mora
             'category' => ['required', 'string'], // Validar que elija la categoria by Sitlali San Martin
         ]);
@@ -57,6 +58,7 @@ class PostController extends Controller
         
         $dataValidates = $request->validate([
             'message' => ['required', 'min:8', 'max:255'],
+            'title' => ['required', 'string', 'max:100'], // Validar que el título sea requerido, una cadena y no exceda los 100 caracteres by Michelle Adriana Flores Mora
             'image' => ['nullable', 'image', 'max:2048'], // Validar que sea una imagen y que no pese más de 2MB by Michelle Adriana Flores Mora
             'category' => ['required', 'string'] // Validar que elija la categoria by Sitlali San Martin
         ]);
@@ -83,6 +85,7 @@ class PostController extends Controller
         // Actualizar el mensaje del post
         $post->message = $dataValidates['message'];
         $post->category = $dataValidates['category']; // Actualizar la categoria del post
+        $post->title = $dataValidates['title']; // Actualizar el título del post by Michelle Adriana Flores Mora
 
         // Actualizar la imagen si se proporcionó una nueva
         if (array_key_exists('image', $dataValidates)) {

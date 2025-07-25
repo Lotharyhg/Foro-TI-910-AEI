@@ -17,6 +17,10 @@
                     {{-- Formulario Crear Post --}}
                     <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
+
+                            {{-- Añadir un titulo al comentario by Michelle Adriana Flores Mora --}}
+                        @include('posts.image.title.add_title') 
+
                         <textarea name="message" placeholder="{{ __('What\'s do you think?') }}"
                             class="mt-6 block w-full rounded-md bg-white shadow-sm focus:border-indigo-200 focus:ring focus:ring-yellow-200 focus:ring-opacity-50 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-300 dark:focus:ring dark:focus:ring-indigo-200 dark:focus:ring-opacity-50 @error('message') border-red-500 @enderror">{{ old('message') }}</textarea>
                         <x-input-error :messages="$errors->get('message')" />
@@ -60,6 +64,9 @@
                                     @endunless
                                 </div>
                             </div>
+                            
+                             {{-- Mostrar el titulo en los comentarios by Michelle Adriana Flores Mora --}}
+                            @include('posts.image.title.add_title_list')
 
                             <p class="mt-4 text-lg text-gray-900 dark:text-gray-100">
                                 {{ $post->message }}

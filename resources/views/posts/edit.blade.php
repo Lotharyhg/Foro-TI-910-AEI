@@ -17,9 +17,13 @@
                         @method('PATCH')
                         @csrf
 
+                         {{-- Añadir un titulo al comentario by Michelle Adriana Flores Mora --}}
+                        @include('posts.image.title.add_title') 
+                        
+
                         <textarea name="message" placeholder="{{ __('What\'s do you think?') }}"
                             class="mt-6 block w-full rounded-md bg-white shadow-sm focus:border-indigo-200 focus:ring focus:ring-yellow-200 focus:ring-opacity-50 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-300 dark:focus:ring dark:focus:ring-opacity-50 @error('message') border-red-500 @enderror">{{ old('message', $post->message) }}</textarea>
-                        <x-input-error :messages="$errors->get('message')" />
+                        <x-input-error class="mb-4" :messages="$errors->get('message')" />
                         
                         <!-- Módulos condicionales de la imagen by Michelle Adriana Flores Mora  -->
                             @if($post->image)
