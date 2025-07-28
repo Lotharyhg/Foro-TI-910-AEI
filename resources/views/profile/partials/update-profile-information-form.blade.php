@@ -29,12 +29,12 @@
 
         <!-- Campo para subir nueva foto -->
         <div class="mt-4">
-            <x-input-label for="fotoperfil" :value="__('Foto de perfil')" />
+            <x-input-label for="profilePicture" :value="__('Foto de perfil')" />
             
             <input
-                id="fotoperfil"
+                id="profilePicture"
                 type="file"
-                name="fotoperfil"
+                name="profilePicture"
                 accept="image/*"
                 class="mt-1 block w-full text-sm text-gray-700 border border-gray-300 rounded-md shadow-sm
                     file:bg-blue-50 file:text-blue-700 file:border-0
@@ -42,7 +42,7 @@
                     dark:text-gray-300 dark:border-gray-600 dark:bg-gray-800"
             />
             
-            <x-input-error :messages="$errors->get('fotoperfil')" class="mt-2" />
+            <x-input-error :messages="$errors->get('profilePicture')" class="mt-2" />
         </div>
 
         <div>
