@@ -1,4 +1,3 @@
-<!-- Lista de mis categorias con sus colores correspondientes by Sitlali San Martin -->
 
 <?php
 
