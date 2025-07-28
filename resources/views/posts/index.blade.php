@@ -41,6 +41,9 @@
                     </form>
                 </div>
             </div>
+            <br>
+         {{-- Módulo de agregar el buscador by Mitzi --}}
+@include('buscador.add_buscador')
 
             {{-- Lista de Posts --}}
             @foreach ($posts as $post)
@@ -77,7 +80,7 @@
                             {{-- Agregar imagen a las lista de posts by Michelle Adriana Flores Mora--}}
                             @include('posts.image.add_list_image')
                             {{-- Agregar la categpria a la lista de posts by Sitlali San Martin --}}
-                            @include('posts.categorias.add_list_categories')
+@include('posts.categorias.add_list_categorias')
 
                             
                             {{-- SE AÑADIÓ UN ICONO DE COMENTARIOS BY JORGE ALDAIR PÉREZ HERNÁNDEZ --}}
