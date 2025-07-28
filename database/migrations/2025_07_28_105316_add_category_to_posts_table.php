@@ -1,5 +1,5 @@
 <?php
-
+// Agregarmos a la tabla posts by Mitzi
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('posts', function(Blueprint $table)
-        {-
-        $table->string('category')->nullable(); // Añadir columna de categorias by Sitlali
+        Schema::table('posts', function (Blueprint $table) {
+                    $table->string('category')->nullable();
         });
     }
 
@@ -22,8 +21,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('posts', function(Blueprint $table){
-        $table->dropColumn('category');// Eliminar columna de categorias by Sitlali
-    });
-}
+        Schema::table('posts', function (Blueprint $table) {
+                    $table->dropColumn('category');
+
+        });
+    }
 };

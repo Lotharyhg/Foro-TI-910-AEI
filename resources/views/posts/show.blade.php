@@ -33,7 +33,7 @@
                             {{$post->message}}
                             @include('posts.image.add_list_image')              
                              {{-- Agregar la categpria a la lista de posts by Sitlali San Martin --}}
-                            @include('posts.categorias.add_list_categories')
+@include('posts.categorias.add_list_categorias')
                         </p>
                         
                         <div class="mt-4">
