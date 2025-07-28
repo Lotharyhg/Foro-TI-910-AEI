@@ -11,6 +11,7 @@ class PostController extends Controller
 {
     public function index()
     {
+         $posts = Post::with(['user', 'comments', 'reacciones'])->latest()->get();
         return view('posts/index', [
             'posts' => Post::with('user')->latest()->get(),
         ]);

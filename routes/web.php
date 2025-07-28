@@ -3,6 +3,7 @@
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PostReactionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -36,6 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
     Route::patch('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
     Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+    Route::post('/posts/{post}/react', [PostReactionController::class, 'react'])->name('posts.react'); 
 
     // CREACIÓN DE RUTAS PARA COMENTARIOS BY JORGE ALDAIR PÉREZ HERNÁNDEZ
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\PostController;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -39,4 +40,21 @@ class Post extends Model
                     ->with('allReplies.user')
                     ->orderBy('created_at', 'asc');
     }
+
+    //Funciones para like y dislike BY JESUS OSWALDO GARCÍA DE LUNA
+    public function reacciones()
+    {
+        return $this->hasMany(PostReacciones::class);
+    }
+
+    public function likes()
+    {
+        return $this->reacciones()->where('is_like', true);
+    }
+
+    public function dislikes()
+    {
+        return $this->reacciones()->where('is_like', false);
+    }
+
 }
