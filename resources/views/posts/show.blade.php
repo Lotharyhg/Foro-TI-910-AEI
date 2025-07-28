@@ -32,7 +32,9 @@
                             @include('posts.image.title.add_title_list')
                         <p class="mt-4 text-lg text-gray-900 dark:text-gray-100">
                             {{$post->message}}
-                            @include('posts.image.add_list_image')
+                            @include('posts.image.add_list_image')              
+                             {{-- Agregar la categpria a la lista de posts by Sitlali San Martin --}}
+                            @include('posts.categorias.add_list_categories')
                         </p>
                         
                         <div class="mt-4">
