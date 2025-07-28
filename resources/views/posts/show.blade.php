@@ -13,9 +13,10 @@
                     <div class="flex-1">
                         <div class="flex justify-between items-center">
                             <div class="flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2 text-gray-600 dark:text-gray-400">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-                                </svg>
+                                {{-- Imagen de perfil en comentario --}}
+                                    <img src="{{ $post->user->profile_photo_url  }}"
+                                        class="w-8 h-8 rounded-full mr-2 border border-gray-300 dark:border-gray-600 object-cover">
+
                                 <span class="text-gray-800 dark:text-gray-200 font-medium">
                                     {{$post->user->name}}
                                 </span>
@@ -35,6 +36,40 @@
                              {{-- Agregar la categpria a la lista de posts by Sitlali San Martin --}}
 @include('posts.categorias.add_list_categorias')
                         </p>
+                        
+                             @php
+                                $userReaction = $post->reacciones->firstWhere('user_id', auth()->id());
+                            @endphp
+
+                                <div class="flex items-center gap-4 mt-4">
+                                    {{-- BOTÓN LIKE --}}
+                                    <form action="{{ route('posts.react', $post) }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="is_like" value="1">
+                                        <button type="submit"
+                                                class="flex items-center gap-1 px-3 py-1.5 rounded-full border 
+                                                    text-sm font-semibold shadow-sm transition-all duration-200
+                                                    {{ $userReaction && $userReaction->is_like 
+                                                        ? 'bg-green-600 text-white hover:bg-green-700' 
+                                                        : 'bg-white text-green-600 border-green-500 hover:bg-green-50' }}">
+                                            👍 Like ({{ $post->likes()->count() }})
+                                        </button>
+                                    </form>
+
+                                    {{-- BOTÓN DISLIKE --}}
+                                    <form action="{{ route('posts.react', $post) }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="is_like" value="0">
+                                        <button type="submit"
+                                                class="flex items-center gap-1 px-3 py-1.5 rounded-full border 
+                                                    text-sm font-semibold shadow-sm transition-all duration-200
+                                                    {{ $userReaction && !$userReaction->is_like 
+                                                        ? 'bg-red-600 text-white hover:bg-red-700' 
+                                                        : 'bg-white text-red-600 border-red-500 hover:bg-red-50' }}">
+                                            👎 Dislike ({{ $post->dislikes()->count() }})
+                                        </button>
+                                    </form>
+                                </div>
                         
                         <div class="mt-4">
                             <a href="{{route('posts.index')}}" 
@@ -63,11 +98,9 @@
                 @csrf
                 <div class="flex space-x-3">
                     <div class="flex-shrink-0">
-                        <div class="w-8 h-8 bg-gradient-to-br from-green-500 to-blue-600 rounded-full flex items-center justify-center">
-                            <span class="text-white text-sm font-medium">
-                                {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
-                            </span>
-                        </div>
+                         {{-- Imagen de perfil en comentario --}}
+                        <img src="{{ $post->user->profile_photo_url  }}"
+                                class="w-8 h-8 rounded-full mr-2 border border-gray-300 dark:border-gray-600 object-cover">
                     </div>
                     
                     <div class="flex-1">

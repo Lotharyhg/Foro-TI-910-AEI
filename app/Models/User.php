@@ -17,6 +17,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'profilePicture', // Asegúrate de que este campo exista en tu migración y sea nullable
     ];
 
     protected $hidden = [
@@ -39,4 +40,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
+
+    // OBTENER FOTO DE PEFIL BY OSCAR AZAEL FORTINO VELÁZQUEZ
+    public function getProfilePhotoUrlAttribute()
+    {
+        return $this->profilePicture
+            ? asset('storage/' . $this->profilePicture)
+            : 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=7F9CF5&background=EBF4FF';
+    }
+
 }
