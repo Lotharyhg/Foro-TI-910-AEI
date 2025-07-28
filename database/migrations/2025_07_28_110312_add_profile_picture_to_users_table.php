@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('posts', function(Blueprint $table)
-        {
-        $table->string('category')->nullable(); // Añadir columna de categorias by Sitlali
+        Schema::table('users', function (Blueprint $table) {
+             // Agregar la columna 'profile_picture' a la tabla 'users'
+            $table->string('profilePicture')->nullable()->after('email');
         });
     }
 
@@ -22,8 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('posts', function(Blueprint $table){
-        $table->dropColumn('category');// Eliminar columna de categorias by Sitlali
-    });
-}
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('profilePicture');
+        });
+    }
 };

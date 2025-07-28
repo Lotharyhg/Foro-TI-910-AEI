@@ -9,15 +9,15 @@
 <div class="comment-item {{ $level === 0 ? 'mb-8 pb-6 border-b-2 border-gray-200 dark:border-gray-700 last:border-b-0 last:pb-0' : 'mb-4' }}">
     <div class="flex space-x-3 py-2">
         <div class="flex-shrink-0">
-            <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                <span class="text-white text-sm font-medium">
-                    {{ strtoupper(substr($comment->user->name, 0, 1)) }}
-                </span>
-            </div>
+                          {{-- Imagen de perfil en comentario --}}
+                                    <img src="{{ $post->user->profile_photo_url  }}"
+                                        class="w-8 h-8 rounded-full mr-2 border border-gray-300 dark:border-gray-600 object-cover">
+
         </div>
         
         <div class="flex-1 min-w-0">
             <div class="flex items-center space-x-2 mb-1">
+
                 <span class="font-medium text-gray-900 dark:text-gray-100 text-sm">
                     {{ $comment->user->name }}
                 </span>
