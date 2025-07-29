@@ -3,6 +3,7 @@
         {{session('status')}}
     </div>
 @endif
+@vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/theme-toggle.js'])
 
 <nav x-data="{ open: false }" class="sticky top-0 z-50 glass-effect bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
@@ -25,17 +26,15 @@
                 </div>
 
                 <!-- Navigation Links -->
-                
-           
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400">
-                        {{ __('Dashboard') }}
+                    <x-nav-link :href="route('welcome')" :active="request()->routeIs('dashboard')" class="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400">
+                        {{ __('') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')" class="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400">
-                        {{ __('Post IT') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('welcome')" class="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400">
+                    <x-nav-link :href="route('welcome')" :active="request()->routeIs('posts.index')" class="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400">
                         {{ __('Inicio') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('posts.index')" class="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400">
+                        {{ __('Publicaciones') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -44,11 +43,9 @@
             <div class="hidden sm:flex sm:items-center sm:ms-6 space-x-4">
                 <!-- Theme Toggle Button -->
                 <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200">
-                    <!-- Icono de sol (modo claro) -->
                     <svg id="theme-toggle-light-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
                     </svg>
-                    <!-- Icono de luna (modo oscuro) -->
                     <svg id="theme-toggle-dark-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
                     </svg>
@@ -58,9 +55,11 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                            <img src="{{ Auth::user()->profile_photo_url }}"
-                                        class="w-8 h-8 rounded-full mr-2 border border-gray-300 dark:border-gray-600 object-cover">
-                            <div>{{ Auth::user()->name }}</div>
+                            @auth
+                                <img src="{{ Auth::user()->profile_photo_url }}"
+                                     class="w-8 h-8 rounded-full mr-2 border border-gray-300 dark:border-gray-600 object-cover">
+                                <div>{{ Auth::user()->name }}</div>
+                            @endauth
 
                             <div class="ms-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -108,7 +107,7 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
-                {{ __('Post IT') }}
+                {{ __('TI Publicaciones') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('welcome')">
                 {{ __('Inicio') }}
@@ -118,18 +117,18 @@
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
             <div class="px-4 flex items-center justify-between">
-                <div>
-                    <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
-                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-                </div>
-                
+                @auth
+                    <div>
+                        <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
+                        <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                    </div>
+                @endauth
+
                 <!-- Theme Toggle Button Mobile -->
                 <button id="theme-toggle-mobile" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200">
-                    <!-- Icono de sol (modo claro) -->
                     <svg id="theme-toggle-light-icon-mobile" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
                     </svg>
-                    <!-- Icono de luna (modo oscuro) -->
                     <svg id="theme-toggle-dark-icon-mobile" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
                     </svg>
