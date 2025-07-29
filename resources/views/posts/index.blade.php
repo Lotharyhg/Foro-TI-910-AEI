@@ -28,24 +28,36 @@
                         {{-- Incluir módulo para agregar imagen by Michelle Adrian Flores Mora--}}
                         @include('posts.image.add_image') 
 
+                         {{-- Incluir módulo para agregar categorias by Sitlali San Martin Juarez--}}
+                        @include('posts.categorias.add_categorias') 
+
                         <x-primary-button class="mt-6">
                             {{ __("Posting") }}
                         </x-primary-button>
+                        
+                   
+
+
                     </form>
                 </div>
             </div>
+            <br>
+         {{-- Módulo de agregar el buscador by Mitzi --}}
+@include('buscador.add_buscador')
 
             {{-- Lista de Posts --}}
             @foreach ($posts as $post)
                 <div class="mt-6 bg-white dark:bg-gray-800 shadow-sm rounded-lg divide-y dark:divide-gray-900">
                     <div class="p-6 flex space-x-2">
-                        <svg class="h-6 w-6 text-gray-600 dark:text-gray-400 -scale-x-100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                            <path fill-rule="evenodd" d="M12 2.25c-2.429 0-4.817.178-7.152.521C2.87 3.061 1.5 4.795 1.5 6.741v6.018c0 1.946 1.37 3.68 3.348 3.97.877.129 1.761.234 2.652.316V21a.75.75 0 0 0 1.28.53l4.184-4.183a.39.39 0 0 1 .266-.112c2.006-.05 3.982-.22 5.922-.506 1.978-.29 3.348-2.023 3.348-3.97V6.741c0-1.947-1.37-3.68-3.348-3.97A49.145 49.145 0 0 0 12 2.25ZM8.25 8.625a1.125 1.125 0 1 0 0 2.25 1.125 1.125 0 0 0 0-2.25Zm2.625 1.125a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Zm4.875-1.125a1.125 1.125 0 1 0 0 2.25 1.125 1.125 0 0 0 0-2.25Z" clip-rule="evenodd" />
-                        </svg>
+                         {{-- Imagen de perfil en comentario --}}
+                                    <img src="{{ $post->user->profile_photo_url  }}"
+                                        class="w-8 h-8 rounded-full mr-2 border border-gray-300 dark:border-gray-600 object-cover">
+
 
                         <div class="flex-1">
                             <div class="flex justify-between items-center">
                                 <div>
+                                   
                                     <span class="text-gray-800 dark:text-gray-200 mt-5 pb-2">
                                         {{ $post->user->name }}
                                     </span>
@@ -57,7 +69,7 @@
                                     @endunless
                                 </div>
                             </div>
-                            
+                                                    
                              {{-- Mostrar el titulo en los comentarios by Michelle Adriana Flores Mora --}}
                             @include('posts.image.title.add_title_list')
 
@@ -67,6 +79,9 @@
 
                             {{-- Agregar imagen a las lista de posts by Michelle Adriana Flores Mora--}}
                             @include('posts.image.add_list_image')
+                            {{-- Agregar la categpria a la lista de posts by Sitlali San Martin --}}
+@include('posts.categorias.add_list_categorias')
+
                             
                             {{-- SE AÑADIÓ UN ICONO DE COMENTARIOS BY JORGE ALDAIR PÉREZ HERNÁNDEZ --}}
                             <div class="mt-4 flex space-x-4">
@@ -78,8 +93,43 @@
                                     Ver comentarios ({{ $post->comments->count() }})
                                 </a>
                             </div>
+
+                             @php
+                                $userReaction = $post->reacciones->firstWhere('user_id', auth()->id());
+                            @endphp
+
+                                <div class="flex items-center gap-4 mt-4">
+                                    {{-- BOTÓN LIKE --}}
+                                    <form action="{{ route('posts.react', $post) }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="is_like" value="1">
+                                        <button type="submit"
+                                                class="flex items-center gap-1 px-3 py-1.5 rounded-full border 
+                                                    text-sm font-semibold shadow-sm transition-all duration-200
+                                                    {{ $userReaction && $userReaction->is_like 
+                                                        ? 'bg-green-600 text-white hover:bg-green-700' 
+                                                        : 'bg-white text-green-600 border-green-500 hover:bg-green-50' }}">
+                                            <x-heroicon-s-hand-thumb-up class="w-5 h-5 {{ $userReaction && $userReaction->is_like ? 'text-white' : 'text-green-600' }}" />
+                                                ({{ $post->likes()->count() }})
+                                        </button>
+                                    </form>
+
+                                    {{-- BOTÓN DISLIKE --}}
+                                    <form action="{{ route('posts.react', $post) }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="is_like" value="0">
+                                        <button type="submit"
+                                                class="flex items-center gap-1 px-3 py-1.5 rounded-full border 
+                                                    text-sm font-semibold shadow-sm transition-all duration-200
+                                                    {{ $userReaction && !$userReaction->is_like 
+                                                        ? 'bg-red-600 text-white hover:bg-red-700' 
+                                                        : 'bg-white text-red-600 border-red-500 hover:bg-red-50' }}">
+                                            <x-heroicon-s-hand-thumb-down class="w-5 h-5 {{ $userReaction && !$userReaction->is_like ? 'text-white' : 'text-red-600' }}" />
+                                                 ({{ $post->dislikes()->count() }})
+                                        </button>
+                                    </form>
+                                </div>
                         </div>
-                        
                         @can('update', $post)
                             <x-dropdown>
                                 <x-slot name="trigger">

@@ -30,7 +30,10 @@
                                 @include('posts.image.update_add_image')
                             @else
                                 @include('posts.image.add_image')
-                            @endif           
+                            @endif         
+                            
+                             {{-- Incluir módulo para agregar categorias by Sitlali San Martin Juarez--}}
+                        @include('posts.categorias.add_categorias') 
                                          
                         <x-primary-button class="mt-6">
                             {{ __("Save Changes") }}

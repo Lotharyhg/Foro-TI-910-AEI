@@ -41,8 +41,13 @@ Este proyecto es un **foro académico** dirigido a estudiantes del área de Tecn
 10. Crea el enlace simbólico al almacenamiento:
     php artisan storage:link
 
-11. Levanta el servidor y prueba que todo funcione:
+12. Descarga los componetes de heroicons:
+    composer require blade-ui-kit/blade-heroicons
+
+13. Levanta el servidor y prueba que todo funcione:
     php artisan serve
+
+14. Actualizar valores para poner a prueba las configuraciones.
 
 ## 🤝 Aportaciones al proyecto
 Si deseas colaborar, sigue estas convenciones:

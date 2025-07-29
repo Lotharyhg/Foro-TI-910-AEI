@@ -9,12 +9,26 @@ use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
-    public function index()
-    {
-        return view('posts/index', [
-            'posts' => Post::with('user')->latest()->get(),
-        ]);
+
+   public function index(Request $request)
+{
+    $query = Post::query();
+
+    // Filtrar por categoría del POST BY MITZI
+    if ($request->filled('category')) {
+        $query->where('category', $request->category);
     }
+
+    // Filtrar por nombre de usuario del POST BY MITZI
+    if ($request->filled('user_name')) {
+        $query->whereHas('user', function ($q) use ($request) {
+            $q->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($request->user_name) . '%']);
+        });
+    }
+
+    $posts = $query->with('comments')->paginate(10);
+    return view('posts.index', compact('posts'));
+}
 
     // NUEVO MÉTODO: Mostrar post individual con comentarios by Jorge Aldair Pérez Hernández
     public function show(Post $post)
@@ -30,6 +44,7 @@ class PostController extends Controller
             'message' => ['required', 'min:8', 'max:255'],
             'title' => ['required', 'string', 'max:100'], // Validar que el título sea requerido, una cadena y no exceda los 100 caracteres by Michelle Adriana Flores Mora
             'image' => ['nullable', 'image', 'max:2048'], // Validar que sea una imagen y que no pese más de 2MB by Michelle Adriana Flores Mora
+            'category' => ['required', 'string'], // Validar que elija la categoria by Sitlali San Martin
         ]);
 
         // Si hay una imagen, la guardamos by Michelle Adriana Flores Mora
@@ -59,6 +74,7 @@ class PostController extends Controller
             'message' => ['required', 'min:8', 'max:255'],
             'title' => ['required', 'string', 'max:100'], // Validar que el título sea requerido, una cadena y no exceda los 100 caracteres by Michelle Adriana Flores Mora
             'image' => ['nullable', 'image', 'max:2048'], // Validar que sea una imagen y que no pese más de 2MB by Michelle Adriana Flores Mora
+           'category' => ['required', 'string'] // Validar que elija la categoria by Sitlali San Martin
         ]);
 
         $removedImage = false;
@@ -82,6 +98,7 @@ class PostController extends Controller
 
         // Actualizar el mensaje del post
         $post->message = $dataValidates['message'];
+        $post->category = $dataValidates['category']; // Actualizar la categoria del post
         $post->title = $dataValidates['title']; // Actualizar el título del post by Michelle Adriana Flores Mora
 
         // Actualizar la imagen si se proporcionó una nueva
@@ -98,6 +115,7 @@ class PostController extends Controller
             return redirect()->route('posts.index')->with('status', __('Post edited successfully!'));
         }
     }
+
 
     public function destroy(Post $post)
     {
