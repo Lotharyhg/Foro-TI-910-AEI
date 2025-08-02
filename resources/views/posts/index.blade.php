@@ -50,9 +50,7 @@
                 <div class="mt-6 bg-white dark:bg-gray-800 shadow-sm rounded-lg divide-y dark:divide-gray-900">
                     <div class="p-6 flex space-x-2">
                          {{-- Imagen de perfil en comentario --}}
-                                    <img src="{{ $post->user->profile_photo_url  }}"
-                                        class="w-8 h-8 rounded-full mr-2 border border-gray-300 dark:border-gray-600 object-cover">
-
+                            <img src="{{ Auth::user()->profile_photo_url }}" class="w-8 h-8 rounded-full object-cover">
 
                         <div class="flex-1">
                             <div class="flex justify-between items-center">
@@ -179,7 +177,11 @@
                         @endcan
                     </div>
                 </div>
+            
             @endforeach
+    {{-- Mostrar el apartado de paginacion en los comentarios by Michelle Adriana Flores Mora --}}
+@include('posts.image.paginate.paginate')
+
         </div>
     </div>
 </x-app-layout>

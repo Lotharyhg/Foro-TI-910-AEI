@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -42,11 +43,11 @@ class User extends Authenticatable
     }
 
     // OBTENER FOTO DE PEFIL BY OSCAR AZAEL FORTINO VELÁZQUEZ
-    public function getProfilePhotoUrlAttribute()
-    {
-        return $this->profilePicture
-            ? asset('storage/' . $this->profilePicture)
-            : 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=7F9CF5&background=EBF4FF';
-    }
+   public function getProfilePhotoUrlAttribute()
+{
+return $this->profile_photo_path
+    ? Storage::url($this->profile_photo_path)
+    : asset('images/default-profile.png');
+}
 
 }
