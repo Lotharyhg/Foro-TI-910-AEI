@@ -26,7 +26,9 @@ class PostController extends Controller
             });
         }
 
-        $posts = $query->with(['comments', 'user'])->paginate(10);
+    $posts = $query->with(['comments', 'user'])
+                   ->latest() // ordena por created_at DESC by Michelle Adriana Flores Mora
+                   ->paginate(10);
         return view('posts.index', compact('posts'));
     }
 
