@@ -9,8 +9,8 @@
 <div class="comment-item {{ $level === 0 ? 'mb-8 pb-6 border-b-2 border-gray-200 dark:border-gray-700 last:border-b-0 last:pb-0' : 'mb-4' }}">
     <div class="flex space-x-3 py-2">
         <div class="flex-shrink-0">
-                          {{-- Imagen de perfil en comentario --}}
-                            <img src="{{ Auth::user()->profile_photo_url }}" class="w-8 h-8 rounded-full object-cover">
+        {{-- Imagen de perfil en comentario by Osacar and  @mandarinnaa tiene que estar autenticado--}} 
+         <img src="{{ Auth::user()->profile_photo_url }}" class="w-8 h-8 rounded-full object-cover">
 
         </div>
         

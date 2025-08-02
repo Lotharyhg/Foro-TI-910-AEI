@@ -27,7 +27,7 @@ class PostController extends Controller
         }
 
     $posts = $query->with(['comments', 'user'])
-                   ->latest() // ordena por created_at DESC by Michelle Adriana Flores Mora
+                   ->latest() // ordena por created_at DESC by @mandarinnaa
                    ->paginate(10);
         return view('posts.index', compact('posts'));
     }
@@ -49,7 +49,7 @@ class PostController extends Controller
             'category' => ['required', 'string'],
         ]);
 
-        // Si hay una imagen, la guardamos by Michelle Adriana Flores Mora
+        // Si hay una imagen, la guardamos by @mandarinnaa
         if ($request->hasFile('image')) {
             $dataValidates['image'] = $request->file('image')->store('posts', 'public');
         }
