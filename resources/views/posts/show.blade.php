@@ -14,8 +14,7 @@
                         <div class="flex justify-between items-center">
                             <div class="flex items-center">
                                 {{-- Imagen de perfil en comentario --}}
-                                    <img src="{{ $post->user->profile_photo_url  }}"
-                                        class="w-8 h-8 rounded-full mr-2 border border-gray-300 dark:border-gray-600 object-cover">
+                            <img src="{{ Auth::user()->profile_photo_url }}" class="w-8 h-8 rounded-full object-cover">
 
                                 <span class="text-gray-800 dark:text-gray-200 font-medium">
                                     {{$post->user->name}}
@@ -99,8 +98,7 @@
                 <div class="flex space-x-3">
                     <div class="flex-shrink-0">
                          {{-- Imagen de perfil en comentario --}}
-                        <img src="{{ $post->user->profile_photo_url  }}"
-                                class="w-8 h-8 rounded-full mr-2 border border-gray-300 dark:border-gray-600 object-cover">
+                              <img src="{{ Auth::user()->profile_photo_url }}" class="w-8 h-8 rounded-full object-cover">
                     </div>
                     
                     <div class="flex-1">

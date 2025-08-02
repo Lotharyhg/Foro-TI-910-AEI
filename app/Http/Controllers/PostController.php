@@ -10,25 +10,25 @@ use Illuminate\Support\Facades\Storage;
 class PostController extends Controller
 {
 
-   public function index(Request $request)
-{
-    $query = Post::query();
+    public function index(Request $request)
+    {
+        $query = Post::query();
 
-    // Filtrar por categoría del POST BY MITZI
-    if ($request->filled('category')) {
-        $query->where('category', $request->category);
+        // Filtrar por categoría del POST BY MITZI
+        if ($request->filled('category')) {
+            $query->where('category', $request->category);
+        }
+
+        // Filtrar por nombre de usuario del POST BY MITZI
+        if ($request->filled('user_name')) {
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($request->user_name) . '%']);
+            });
+        }
+
+        $posts = $query->with(['comments', 'user'])->paginate(10);
+        return view('posts.index', compact('posts'));
     }
-
-    // Filtrar por nombre de usuario del POST BY MITZI
-    if ($request->filled('user_name')) {
-        $query->whereHas('user', function ($q) use ($request) {
-            $q->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($request->user_name) . '%']);
-        });
-    }
-
-    $posts = $query->with('comments')->paginate(10);
-    return view('posts.index', compact('posts'));
-}
 
     // NUEVO MÉTODO: Mostrar post individual con comentarios by Jorge Aldair Pérez Hernández
     public function show(Post $post)
@@ -42,9 +42,9 @@ class PostController extends Controller
         // Validaciones
         $dataValidates = $request->validate([
             'message' => ['required', 'min:8', 'max:255'],
-            'title' => ['required', 'string', 'max:100'], // Validar que el título sea requerido, una cadena y no exceda los 100 caracteres by Michelle Adriana Flores Mora
-            'image' => ['nullable', 'image', 'max:2048'], // Validar que sea una imagen y que no pese más de 2MB by Michelle Adriana Flores Mora
-            'category' => ['required', 'string'], // Validar que elija la categoria by Sitlali San Martin
+            'title' => ['required', 'string', 'max:100'],
+            'image' => ['nullable', 'file', 'mimes:jpeg,png,jpg,ico', 'max:10240'],
+            'category' => ['required', 'string'],
         ]);
 
         // Si hay una imagen, la guardamos by Michelle Adriana Flores Mora
@@ -69,22 +69,22 @@ class PostController extends Controller
     {
         // llamar la función de la politica creada
         $this->authorize('update', $post);
-        
+
         $dataValidates = $request->validate([
             'message' => ['required', 'min:8', 'max:255'],
             'title' => ['required', 'string', 'max:100'], // Validar que el título sea requerido, una cadena y no exceda los 100 caracteres by Michelle Adriana Flores Mora
-            'image' => ['nullable', 'image', 'max:2048'], // Validar que sea una imagen y que no pese más de 2MB by Michelle Adriana Flores Mora
-           'category' => ['required', 'string'] // Validar que elija la categoria by Sitlali San Martin
+            'image' => ['nullable', 'file', 'mimes:jpeg,png,jpg,ico', 'max:10240'], // Validar que sea una imagen y que no pese más de 2MB by Michelle Adriana Flores Mora
+            'category' => ['required', 'string'] // Validar que elija la categoria by Sitlali San Martin
         ]);
 
         $removedImage = false;
-        
+
         // Si el usuario quiere eliminar la imagen, la eliminamos de la carpeta de almacenamiento by Michelle Adriana Flores Mora
         if ($request->input('remove_image') == '1') {
             if ($post->image) {
                 Storage::disk('public')->delete($post->image);
                 $post->image = null;
-                $removedImage = true;  
+                $removedImage = true;
             }
         }
 
@@ -120,12 +120,12 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $this->authorize('delete', $post);
-        
+
         // Si el post tiene una imagen, eliminarla de la carpeta de almacenamiento by Michelle Adriana Flores Mora
         if ($post->image) {
             Storage::disk('public')->delete($post->image);
         }
-        
+
         $post->delete();
         return to_route('posts.index')->with('status', __('Post deleted successfully'));
     }

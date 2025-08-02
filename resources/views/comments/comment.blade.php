@@ -10,8 +10,7 @@
     <div class="flex space-x-3 py-2">
         <div class="flex-shrink-0">
                           {{-- Imagen de perfil en comentario --}}
-                                    <img src="{{ $post->user->profile_photo_url  }}"
-                                        class="w-8 h-8 rounded-full mr-2 border border-gray-300 dark:border-gray-600 object-cover">
+                            <img src="{{ Auth::user()->profile_photo_url }}" class="w-8 h-8 rounded-full object-cover">
 
         </div>
         
