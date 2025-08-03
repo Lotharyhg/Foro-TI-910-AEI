@@ -14,7 +14,9 @@
                         <div class="flex justify-between items-center">
                             <div class="flex items-center">
                                 {{-- Imagen de perfil en comentario --}}
-                            <img src="{{ Auth::user()->profile_photo_url }}" class="w-8 h-8 rounded-full object-cover">
+@auth
+    <img src="{{ Auth::user()->profile_photo_url }}" class="w-8 h-8 rounded-full object-cover">
+@endauth
 
                                 <span class="text-gray-800 dark:text-gray-200 font-medium">
                                     {{$post->user->name}}

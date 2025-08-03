@@ -1,4 +1,4 @@
-{{-- Módulo de actualizar/eliminar imagen by Michelle Adriana Flores Mora --}}
+{{-- Módulo de actualizar/eliminar imagen by mandarinnaa --}}
 <div class="space-y-4">
     <div class="relative overflow-hidden rounded-xl shadow-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-2">
         <img src="{{ asset('storage/' . $post->image) }}" alt="Imagen del Post" class="rounded-lg max-h-40 mx-auto">

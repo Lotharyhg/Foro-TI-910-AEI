@@ -10,7 +10,9 @@
     <div class="flex space-x-3 py-2">
         <div class="flex-shrink-0">
         {{-- Imagen de perfil en comentario by Osacar and  @mandarinnaa tiene que estar autenticado--}} 
-         <img src="{{ Auth::user()->profile_photo_url }}" class="w-8 h-8 rounded-full object-cover">
+@auth
+    <img src="{{ Auth::user()->profile_photo_url }}" class="w-8 h-8 rounded-full object-cover">
+@endauth
 
         </div>
         
